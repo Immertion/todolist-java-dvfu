@@ -1,9 +1,8 @@
 package com.example.todolist_java_dvfu.presentation.main;
 
-import static android.os.Build.VERSION_CODES.S;
-
 import android.app.Activity;
 import android.graphics.Paint;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -19,21 +18,23 @@ import com.example.todolist_java_dvfu.R;
 import com.example.todolist_java_dvfu.model.Task;
 import com.example.todolist_java_dvfu.presentation.taskFace.taskFaceActivity;
 
+import java.util.List;
+
 public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
 
     private SortedList<Task> sortedList;
 
-    public Adapter(SortedList<Task> sortedList) {
+    public Adapter() {
         sortedList = new SortedList<>(Task.class, new SortedList.Callback<Task>() {
             @Override
-            public int compare(Task o1, Task o2) {
-                if (!o2.done && o1.done) {
+            public int compare(Task taskUp, Task taskDown) {
+                if (!taskDown.done && taskUp.done) {
                     return 1;
                 }
-                if (o2.done && !o1.done) {
+                if (taskDown.done && !taskUp.done) {
                     return -1;
                 }
-                return (int) (o2.timestamp - o1.timestamp);
+                return (int) (taskDown.timestamp - taskUp.timestamp);
             }
 
             @Override
@@ -72,17 +73,23 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        return new TaskViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task_list, parent, false)
+        );
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-
+        holder.bind(sortedList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return sortedList.size();
+    }
+
+    public void setItems(List<Task> tasks){
+        sortedList.replaceAll(tasks);
     }
 
     static class TaskViewHolder extends RecyclerView.ViewHolder {

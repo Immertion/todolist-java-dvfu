@@ -1,4 +1,4 @@
-package com.example.todolist_java_dvfu.presentation.taskFace;
+package com.example.todolist_java_dvfu.presentation.face;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,10 +38,10 @@ public class taskFaceActivity  extends AppCompatActivity {
 
         setContentView(R.layout.activity_task_face);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
 
         setTitle(R.string.task_face_title);
 
@@ -57,7 +57,6 @@ public class taskFaceActivity  extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_task, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 

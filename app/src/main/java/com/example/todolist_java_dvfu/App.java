@@ -22,6 +22,8 @@ public class App extends Application {
     public void onCreate(){
         super.onCreate();
 
+        instance = this;
+
         database = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "DB_Task")
                 .allowMainThreadQueries()

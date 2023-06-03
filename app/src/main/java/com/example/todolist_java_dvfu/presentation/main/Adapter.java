@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.SortedList;
 import com.example.todolist_java_dvfu.App;
 import com.example.todolist_java_dvfu.R;
 import com.example.todolist_java_dvfu.model.Task;
-import com.example.todolist_java_dvfu.presentation.taskFace.taskFaceActivity;
+import com.example.todolist_java_dvfu.presentation.face.taskFaceActivity;
 
 import java.util.List;
 
@@ -25,16 +25,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
     private SortedList<Task> sortedList;
 
     public Adapter() {
+
         sortedList = new SortedList<>(Task.class, new SortedList.Callback<Task>() {
             @Override
-            public int compare(Task taskUp, Task taskDown) {
-                if (!taskDown.done && taskUp.done) {
+            public int compare(Task o1, Task o2) {
+                if (!o2.done && o1.done) {
                     return 1;
                 }
-                if (taskDown.done && !taskUp.done) {
+                if (o2.done && !o1.done) {
                     return -1;
                 }
-                return (int) (taskDown.timestamp - taskUp.timestamp);
+                return (int) (o2.timestamp - o1.timestamp);
             }
 
             @Override
@@ -67,15 +68,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
                 notifyItemMoved(fromPosition, toPosition);
             }
         });
-
     }
 
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new TaskViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task_list, parent, false)
-        );
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task_list, parent, false));
     }
 
     @Override
@@ -88,10 +87,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
         return sortedList.size();
     }
 
-    public void setItems(List<Task> tasks){
+    public void setItems(List<Task> tasks) {
         sortedList.replaceAll(tasks);
     }
-
     static class TaskViewHolder extends RecyclerView.ViewHolder {
 
         TextView taskText;
@@ -102,7 +100,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
 
         boolean middleUpdate;
 
-        public TaskViewHolder(@NonNull View itemView) {
+        public TaskViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             taskText = itemView.findViewById(R.id.task_text);
@@ -126,7 +124,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
             done.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                    if (!middleUpdate){
+                    if (!middleUpdate) {
                         task.done = checked;
                         App.getInstance().getTaskDao().updateTask(task);
                     }
@@ -135,7 +133,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
             });
         }
 
-        public void bind(Task tsak) {
+        public void bind(Task task) {
             this.task = task;
 
             taskText.setText(task.text);
@@ -144,7 +142,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
             middleUpdate = true;
             done.setChecked(task.done);
             middleUpdate = false;
-            ;
         }
 
         private void crossOutTask(){

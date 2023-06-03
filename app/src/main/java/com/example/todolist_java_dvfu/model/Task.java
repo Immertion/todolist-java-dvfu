@@ -28,6 +28,19 @@ public class Task implements Parcelable {
     public Task(){
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return uid == task.uid && timestamp == task.timestamp && done == task.done && Objects.equals(text, task.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, text, timestamp, done);
+    }
+
     protected Task(Parcel in) {
         uid = in.readInt();
         text = in.readString();
@@ -60,16 +73,5 @@ public class Task implements Parcelable {
         }
     };
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Task)) return false;
-        Task task = (Task) o;
-        return uid == task.uid && timestamp == task.timestamp && done == task.done && Objects.equals(text, task.text);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, text, timestamp, done);
-    }
 }

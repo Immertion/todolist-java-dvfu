@@ -1,7 +1,8 @@
-package com.example.todolist_java_dvfu;
+package com.example.todolist_java_dvfu.presentation;
 
 import android.os.Bundle;
 
+import com.example.todolist_java_dvfu.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,4 +1,4 @@
-package com.example.todolist_java_dvfu.presentation;
+package com.example.todolist_java_dvfu.presentation.main;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

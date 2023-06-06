@@ -25,6 +25,9 @@ public class Task implements Parcelable {
     @ColumnInfo(name = "done")
     public boolean done;
 
+    @ColumnInfo(name = "important")
+    public boolean important;
+
     public Task(){
     }
 
@@ -33,12 +36,12 @@ public class Task implements Parcelable {
         if (this == o) return true;
         if (!(o instanceof Task)) return false;
         Task task = (Task) o;
-        return uid == task.uid && timestamp == task.timestamp && done == task.done && Objects.equals(text, task.text);
+        return uid == task.uid && timestamp == task.timestamp && done == task.done && important == task.important && Objects.equals(text, task.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uid, text, timestamp, done);
+        return Objects.hash(uid, text, timestamp, done, important);
     }
 
     protected Task(Parcel in) {
@@ -46,6 +49,7 @@ public class Task implements Parcelable {
         text = in.readString();
         timestamp = in.readLong();
         done = in.readByte() != 0;
+        important = in.readByte() != 0;
     }
 
     @Override
@@ -54,6 +58,7 @@ public class Task implements Parcelable {
         dest.writeString(text);
         dest.writeLong(timestamp);
         dest.writeByte((byte) (done ? 1 : 0));
+        dest.writeByte((byte) (important ? 1 : 0));
     }
 
     @Override

@@ -70,6 +70,7 @@ public class taskFaceActivity  extends AppCompatActivity {
                 if(editText.getText().length() > 0){
                     task.text = editText.getText().toString();
                     task.done = false;
+                    task.important = false;
                     task.timestamp = System.currentTimeMillis();
                     if (getIntent().hasExtra(EXTRA_TASK)){
                         App.getInstance().getTaskDao().updateTask(task);

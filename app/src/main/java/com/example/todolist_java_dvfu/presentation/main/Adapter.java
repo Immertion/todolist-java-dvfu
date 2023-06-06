@@ -29,6 +29,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
         sortedList = new SortedList<>(Task.class, new SortedList.Callback<Task>() {
             @Override
             public int compare(Task o1, Task o2) {
+                if (!o2.important && o1.important){
+                    return -1;
+                }
+                if (o2.important && !o1.important){
+                    return 1;
+                }
                 if (!o2.done && o1.done) {
                     return 1;
                 }
@@ -79,7 +85,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        holder.bind(sortedList.get(position));
+        holder.bindDone(sortedList.get(position));
+        holder.bindImpo(sortedList.get(position));
     }
 
     @Override
@@ -96,6 +103,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
         CheckBox done;
         View delete;
 
+        CheckBox important;
+
         Task task;
 
         boolean middleUpdate;
@@ -106,6 +115,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
             taskText = itemView.findViewById(R.id.task_text);
             done = itemView.findViewById(R.id.done);
             delete = itemView.findViewById(R.id.delete);
+            important = itemView.findViewById(R.id.important);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,6 +131,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
                 }
             });
 
+            important.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean chose) {
+                    if(!middleUpdate){
+                        task.important = chose;
+                        App.getInstance().getTaskDao().updateTask(task);
+                    }
+                }
+            });
+
             done.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
@@ -133,7 +153,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
             });
         }
 
-        public void bind(Task task) {
+        public void bindDone(Task task) {
             this.task = task;
 
             taskText.setText(task.text);
@@ -151,6 +171,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
                 taskText.setPaintFlags(taskText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
 
             }
+        }
+        public void bindImpo(Task task) {
+            this.task = task;
+
+
+            middleUpdate = true;
+            important.setChecked(task.important);
+            middleUpdate = false;
+
         }
     }
 }

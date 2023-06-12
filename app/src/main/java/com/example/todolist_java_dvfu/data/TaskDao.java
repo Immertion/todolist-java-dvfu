@@ -22,9 +22,6 @@ public interface TaskDao {
     @Query("SELECT * FROM Task")
     LiveData<List<Task>> getAllLiveDataTask();
 
-    @Query("SELECT * FROM Task WHERE uid IN (:taskIds)")
-    List<Task> loadAllByIdsTask(int[] taskIds);
-
     @Query("SELECT * FROM task WHERE uid = :uid LIMIT 1")
     Task findByIdTask(int uid);
 

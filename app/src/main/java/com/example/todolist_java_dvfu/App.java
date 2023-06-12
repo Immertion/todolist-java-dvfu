@@ -6,11 +6,15 @@ import androidx.room.Room;
 
 import com.example.todolist_java_dvfu.data.AppDatabase;
 import com.example.todolist_java_dvfu.data.TaskDao;
+import com.example.todolist_java_dvfu.data.TaskListDao;
+import com.example.todolist_java_dvfu.model.ListTask;
 
 public class App extends Application {
 
     private AppDatabase database;
     private TaskDao taskDao;
+
+    private TaskListDao taskListDao;
 
     private  static App instance;
 
@@ -25,11 +29,14 @@ public class App extends Application {
         instance = this;
 
         database = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "DBD_Task")
+                AppDatabase.class, "TaskList_DB")
                 .allowMainThreadQueries()
                 .build();
 
         taskDao = database.taskDao();
+        taskListDao = database.taskListDao();
+
+
     }
 
     public AppDatabase getDatabase() {

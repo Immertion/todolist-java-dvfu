@@ -21,9 +21,7 @@ import com.example.todolist_java_dvfu.App;
 import com.example.todolist_java_dvfu.R;
 import com.example.todolist_java_dvfu.model.ListTask;
 import com.example.todolist_java_dvfu.model.Task;
-import com.example.todolist_java_dvfu.presentation.adapter.listTaskAdapter;
 import com.example.todolist_java_dvfu.presentation.adapter.taskAdapter;
-import com.example.todolist_java_dvfu.presentation.main.MainActivity;
 import com.example.todolist_java_dvfu.presentation.main.MainViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -52,7 +50,7 @@ public class taskListFaceActivity  extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_task_face);
+        setContentView(R.layout.activity_list_face);
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);

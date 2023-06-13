@@ -25,7 +25,11 @@ import com.example.todolist_java_dvfu.presentation.adapter.taskAdapter;
 import com.example.todolist_java_dvfu.presentation.main.MainViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 //import com.example.todolist_java_dvfu.model.Task;
 
 public class taskListFaceActivity  extends AppCompatActivity {
@@ -51,11 +55,6 @@ public class taskListFaceActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_list_face);
-
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
 
         setTitle(R.string.list_face_title);
 
@@ -83,7 +82,7 @@ public class taskListFaceActivity  extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                taskFaceActivity.start(taskListFaceActivity.this, null);
+                taskFaceActivity.start(taskListFaceActivity.this, null, list.uid);
             }
         });
 
@@ -91,8 +90,13 @@ public class taskListFaceActivity  extends AppCompatActivity {
         mainViewModel.getTaskLiveData().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> tasks) {
-                adapter.notifyDataSetChanged();
-                adapter.setItems(tasks);
+                ArrayList<Task> listTasks = new ArrayList<Task>();
+                for (int i = 0; i < tasks.size(); i++){
+                    if (tasks.get(i).listId == list.uid){
+                        listTasks.add(tasks.get(i));
+                    }
+                }
+                adapter.setItems(listTasks);
 
             }
         });

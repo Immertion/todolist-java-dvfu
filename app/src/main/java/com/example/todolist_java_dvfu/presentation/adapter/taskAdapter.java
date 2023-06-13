@@ -120,7 +120,7 @@ public class taskAdapter extends RecyclerView.Adapter<taskAdapter.TaskViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    taskFaceActivity.start((Activity) itemView.getContext(), task);
+                    taskFaceActivity.start((Activity) itemView.getContext(), task, task.listId);
                 }
             });
 
@@ -133,9 +133,9 @@ public class taskAdapter extends RecyclerView.Adapter<taskAdapter.TaskViewHolder
 
             important.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean chose) {
+                public void onCheckedChanged(CompoundButton compoundButton, boolean choose) {
                     if(!middleUpdate){
-                        task.important = chose;
+                        task.important = choose;
                         App.getInstance().getTaskDao().updateTask(task);
                     }
                 }

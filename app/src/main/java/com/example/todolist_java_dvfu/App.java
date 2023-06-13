@@ -30,7 +30,7 @@ public class App extends Application {
         instance = this;
 
         database = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "TaskList_DB_31")
+                AppDatabase.class, "TaskList_DB_33")
                 .allowMainThreadQueries()
                 .build();
 

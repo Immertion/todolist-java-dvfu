@@ -23,13 +23,14 @@ public class taskFaceActivity  extends AppCompatActivity {
 
     private EditText editText;
 
-    public static void start(Activity caller, Task task){
+
+    public static void start(Activity caller, Task task, int listId){
         Intent intent = new Intent(caller, taskFaceActivity.class);
+        intent.putExtra("listId", listId);
         if (task != null){
             intent.putExtra(EXTRA_TASK, task);
         }
         caller.startActivity(intent);
-
     }
 
     @Override
@@ -38,14 +39,9 @@ public class taskFaceActivity  extends AppCompatActivity {
 
         setContentView(R.layout.activity_task_face);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-
         setTitle(R.string.task_face_title);
 
-        editText = findViewById(R.id.title);
+        editText = findViewById(R.id.text_for_task);
 
 
         if (getIntent().hasExtra(EXTRA_TASK)){
@@ -53,7 +49,9 @@ public class taskFaceActivity  extends AppCompatActivity {
             editText.setText(task.text);
         } else{
             task = new Task();
+            task.listId = getIntent().getExtras().getInt("listId");
         }
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){

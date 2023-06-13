@@ -9,20 +9,16 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.todolist_java_dvfu.model.ListTask;
-import com.example.todolist_java_dvfu.model.Task;
 
 import java.util.List;
 
 @Dao
-public interface TaskListDao {
-    @Query("SELECT * FROM ListTask")
-    List<Task> getAllList();
-
+public interface ListTaskDao {
     @Query("SELECT * FROM ListTask")
     LiveData<List<ListTask>> getAllLiveDataList();
 
     @Query("SELECT * FROM ListTask WHERE uid = :uid LIMIT 1")
-    Task findByIdList(int uid);
+    ListTask findByIdList(int uid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertList(ListTask listTask);

@@ -1,4 +1,4 @@
-package com.example.todolist_java_dvfu.presentation.main;
+package com.example.todolist_java_dvfu.presentation.adapter;
 
 import android.app.Activity;
 import android.graphics.Paint;
@@ -20,11 +20,11 @@ import com.example.todolist_java_dvfu.presentation.face.taskFaceActivity;
 
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.TaskViewHolder> {
+public class taskAdapter extends RecyclerView.Adapter<taskAdapter.TaskViewHolder> {
 
     private SortedList<Task> sortedList;
 
-    public Adapter() {
+    public taskAdapter() {
 
         sortedList = new SortedList<>(Task.class, new SortedList.Callback<Task>() {
             @Override

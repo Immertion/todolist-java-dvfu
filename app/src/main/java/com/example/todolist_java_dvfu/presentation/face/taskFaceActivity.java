@@ -5,16 +5,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todolist_java_dvfu.App;
 import com.example.todolist_java_dvfu.R;
+import com.example.todolist_java_dvfu.model.ListTask;
 import com.example.todolist_java_dvfu.model.Task;
+import com.example.todolist_java_dvfu.presentation.adapter.listTaskAdapter;
+import com.example.todolist_java_dvfu.presentation.adapter.taskAdapter;
+import com.example.todolist_java_dvfu.presentation.main.MainActivity;
+import com.example.todolist_java_dvfu.presentation.main.MainViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class taskFaceActivity  extends AppCompatActivity {
 
@@ -30,6 +43,7 @@ public class taskFaceActivity  extends AppCompatActivity {
             intent.putExtra(EXTRA_TASK, task);
         }
         caller.startActivity(intent);
+
     }
 
     @Override
@@ -45,7 +59,8 @@ public class taskFaceActivity  extends AppCompatActivity {
 
         setTitle(R.string.task_face_title);
 
-        editText = findViewById(R.id.text);
+        editText = findViewById(R.id.title);
+
 
         if (getIntent().hasExtra(EXTRA_TASK)){
             task = getIntent().getParcelableExtra(EXTRA_TASK);

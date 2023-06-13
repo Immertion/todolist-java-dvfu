@@ -4,6 +4,7 @@ package com.example.todolist_java_dvfu.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -15,6 +16,9 @@ public class Task implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     public int uid;
+
+    @ColumnInfo(name = "listId")
+    public int listId;
 
     @ColumnInfo(name = "text")
     public String text;
@@ -31,39 +35,13 @@ public class Task implements Parcelable {
     public Task(){
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Task)) return false;
-        Task task = (Task) o;
-        return uid == task.uid && timestamp == task.timestamp && done == task.done && important == task.important && Objects.equals(text, task.text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uid, text, timestamp, done, important);
-    }
-
     protected Task(Parcel in) {
         uid = in.readInt();
+        listId = in.readInt();
         text = in.readString();
         timestamp = in.readLong();
         done = in.readByte() != 0;
         important = in.readByte() != 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(uid);
-        dest.writeString(text);
-        dest.writeLong(timestamp);
-        dest.writeByte((byte) (done ? 1 : 0));
-        dest.writeByte((byte) (important ? 1 : 0));
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
@@ -78,5 +56,32 @@ public class Task implements Parcelable {
         }
     };
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return uid == task.uid && listId == task.listId && timestamp == task.timestamp && done == task.done && important == task.important && Objects.equals(text, task.text);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid, listId, text, timestamp, done, important);
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(uid);
+        parcel.writeInt(listId);
+        parcel.writeString(text);
+        parcel.writeLong(timestamp);
+        parcel.writeByte((byte) (done ? 1 : 0));
+        parcel.writeByte((byte) (important ? 1 : 0));
+    }
 }

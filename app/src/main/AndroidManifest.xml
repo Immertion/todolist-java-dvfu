@@ -25,10 +25,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.example.todolist_java_dvfu.presentation.face.taskListFaceActivity"
+            android:theme="@style/Theme.Todolistjavadvfu"
+            />
 
         <activity
             android:name="com.example.todolist_java_dvfu.presentation.face.taskFaceActivity"
             android:theme="@style/Theme.Todolistjavadvfu"
             />
+
     </application>
 </manifest>

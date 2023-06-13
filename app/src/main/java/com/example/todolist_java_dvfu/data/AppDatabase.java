@@ -6,9 +6,9 @@ import androidx.room.RoomDatabase;
 import com.example.todolist_java_dvfu.model.ListTask;
 import com.example.todolist_java_dvfu.model.Task;
 
-@Database(entities = {Task.class, ListTask.class}, version = 1, exportSchema = false)
+@Database(entities = {ListTask.class, Task.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
+    public abstract ListTaskDao taskListDao();
     public abstract TaskDao taskDao();
-    public abstract TaskListDao taskListDao();
 
 }

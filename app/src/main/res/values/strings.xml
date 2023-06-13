@@ -4,6 +4,8 @@
     
     <string name="task_text">Введите текст задачи</string>
     <string name="task_face_title">Задачи</string>
+    <string name="list_face_title">Список</string>
+
 
     <string name="save">Сохранить</string>
 
